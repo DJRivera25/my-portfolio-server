@@ -9,6 +9,7 @@ import toolRoutes from "./routes/toolRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import resumeRoutes from "./routes/resumeRoutes.js";
+import socialRoutes from "./routes/socialRoutes.js";
 
 // Load env vars
 dotenv.config();
@@ -35,6 +36,7 @@ app.use("/api/tools", toolRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
+app.use("/api/socials", socialRoutes);
 
 // Health check
 app.get("/", (_req: Request, res: Response) => {
@@ -46,7 +48,7 @@ mongoose
   .connect(MONGO_URI)
   .then(() => {
     console.log("✅ Connected to MongoDB");
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} ${CORS_ORIGIN}`));
   })
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err.message);

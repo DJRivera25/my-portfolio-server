@@ -14,6 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
+
 if (!MONGO_URI) throw new Error("❌ MONGO_URI not defined in .env");
 // Middlewares
 app.use(
@@ -38,7 +39,7 @@ mongoose
   .connect(MONGO_URI)
   .then(() => {
     console.log("✅ Connected to MongoDB");
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT} ${CORS_ORIGIN}`));
   })
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err.message);

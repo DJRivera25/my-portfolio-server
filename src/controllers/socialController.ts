@@ -15,21 +15,31 @@ export const getSocials = async (_req: Request, res: Response) => {
 // 🆕 POST new social media link
 export const createSocial = async (req: Request, res: Response) => {
   try {
+    console.log("📥 Incoming Social Upload:");
+    console.log("📝 Body:", req.body);
+    console.log("📷 File:", req.file);
+
     const { platform, url } = req.body;
-    const icon = (req.file as Express.Multer.File)?.path;
+    const icon = req.file?.path;
 
     if (!platform || !url || !icon) {
-      res.status(400).json({ message: "All fields including icon are required" });
+      console.error("🚫 Missing fields");
+      res.status(400).json({ message: "Platform, URL, and icon are required" });
       return;
     }
 
-    const newSocial = new Social({ platform, icon, url });
+    const newSocial = new Social({ platform, url, icon });
     const saved = await newSocial.save();
 
+    console.log("✅ Saved Social:", saved);
     res.status(201).json(saved);
   } catch (error) {
-    console.error("❌ Error creating social:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error("❌ createSocial Error:", error);
+
+    // Fix: Ensure server returns proper JSON format
+    res.status(500).json({
+      error: error,
+    });
   }
 };
 

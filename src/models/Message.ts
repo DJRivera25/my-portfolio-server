@@ -6,6 +6,7 @@ const messageSchema = new mongoose.Schema(
     email: { type: String, required: true },
     subject: { type: String },
     message: { type: String, required: true },
+    hasViewed: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

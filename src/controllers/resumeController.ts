@@ -4,9 +4,10 @@ import cloudinary from "../utils/cloudinary.js";
 
 // POST /api/resume - Upload Resume
 export const uploadResume = async (req: Request, res: Response): Promise<void> => {
-  const file = req.file as Express.Multer.File;
-  const fileUrl = file?.path;
-  const publicId = file?.filename;
+  const uploadedFile = req.file as any;
+  const rawUrl = uploadedFile?.secure_url || uploadedFile?.path;
+  const fileUrl = rawUrl.endsWith(".pdf") ? rawUrl : `${rawUrl}.pdf`;
+  const publicId = uploadedFile?.filename;
 
   if (!fileUrl || !publicId) {
     res.status(400).json({ message: "Resume file is required." });

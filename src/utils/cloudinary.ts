@@ -17,11 +17,14 @@ export const storage = new CloudinaryStorage({
   params: async (req, file) => {
     const isPdf = file.mimetype === "application/pdf";
 
+    // If coming from Socials route, store in "socials" folder
+    const isSocial = req.originalUrl.includes("/api/socials");
+
     return {
-      folder: isPdf ? "resumes" : "portfolio",
-      resource_type: isPdf ? "raw" : "image", // PDF must be uploaded as raw
+      folder: isPdf ? "resumes" : isSocial ? "socials" : "portfolio",
+      resource_type: isPdf ? "raw" : "image",
       format: isPdf ? "pdf" : undefined,
-      public_id: `${isPdf ? "Derem-Joshua-Rivera-Resume" : `image-${Date.now()}`}`,
+      public_id: isPdf ? "Derem-Joshua-Rivera-Resume.pdf" : isSocial ? `social-${Date.now()}` : `image-${Date.now()}`,
       allowed_formats: isPdf ? ["pdf"] : ["jpg", "jpeg", "png", "webp"],
       transformation: isPdf ? undefined : [{ width: 800, crop: "limit" }],
     };

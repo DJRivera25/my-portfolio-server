@@ -1,10 +1,9 @@
 import express from "express";
 import multer from "multer";
-import { storage } from "../utils/cloudinary.js";
 import { getSocials, createSocial, deleteSocial, updateSocial } from "../controllers/socialController.js";
+import upload from "../middlewares/upload.js";
 import { protect } from "../middlewares/auth.js";
 
-const upload = multer({ storage });
 const router = express.Router();
 
 router.get("/", getSocials);

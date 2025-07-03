@@ -4,11 +4,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 // Routes
-import projectRoutes from "./routes/projectRoutes";
-import toolRoutes from "./routes/toolRoutes";
-import messageRoutes from "./routes/messageRoutes";
+import projectRoutes from "./routes/projectRoutes.js";
+import toolRoutes from "./routes/toolRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import resumeRoutes from "./routes/resumeRoutes";
+import resumeRoutes from "./routes/resumeRoutes.js";
 
 // Load env vars
 dotenv.config();
